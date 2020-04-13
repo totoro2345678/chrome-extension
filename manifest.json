@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "wiki",
+    "description": "wiki",
+    "version": "1.0",
+    //取得contextMenus權限
+    "permissions": [
+        "contextMenus",
+        "storage",
+        "tabs",
+        "activeTab",
+        "<all_urls>"
+    ],
+    //指定功能選單項目的icon 16X16，注意不要跟broswer與page action的宣告方式搞混
+    "icons": {
+        "16": "icon.png"
+    },
+    "background": {
+        "scripts": [
+            "event.js"
+        ],
+        //如果不把persistent設定為true：他會要求你自己使用字串指定項目的id，而且不可以重複，另外點擊事件的綁定也會變的相對複雜，為了讓大家把重點聚焦，所以才這麼作。
+        "persistent": false
+    }
+}
