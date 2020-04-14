@@ -49,9 +49,12 @@ chrome.storage.local.get('selectionText', function (items) {
         document.getElementById("notfound").style.display = "block";
         document.getElementById("find").style.display = "none";
         document.getElementById("notfound").innerHTML = '<div class="d-flex justify-content-center"><h3 class="mt-5">wikipedia  not found</h3></div>';
-        document.getElementById("notfound").innerHTML += '<br>' + `<a  href="https://www.google.com/search?q=` + items.selectionText + '"' + "target='_blank'  class='btn btn-outline-primary btn-lg btn-block'" + `>` + "Search By Google" + `</a>`;;
+        document.getElementById("notfound").innerHTML += '<br>' + `<a  href="https://www.google.com/search?q=` + items.selectionText + '"' + "target='_blank' id='googlesearch' class='btn btn-outline-primary btn-lg btn-block'" + `>` + "Search By Google" + `</a>`;;
 
-
+        function click() {
+            window.close();
+        }
+        document.getElementById('googlesearch').addEventListener("click", click);
     }
     chrome.storage.local.remove('selectionText');
 });
