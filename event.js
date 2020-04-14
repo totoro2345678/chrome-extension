@@ -1,17 +1,29 @@
 
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-    console.log(info.selectionText);
+    // console.log(info.selectionText);
+    var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="
+        + "auto" + "&tl=" + "zh-TW" + "&dt=t&q=" + encodeURI(info.selectionText);
+    var translate;
+    fetch(url).then(function (resp) {
+        // console.log(resp);
+        return resp.json()
+    }).then(function (data) {
+
+        translate = data[0][0][0];
+    });
+
     var object_data;
     fetch("https://en.wikipedia.org/api/rest_v1/page/summary/" + info.selectionText + "?SameSite=None").then(function (resp) {
-        console.log(resp);
+        // console.log(resp);
 
         return resp.json()
     }).then(function (data) {
         object_data = data;
-        console.log(data);
+
+        // console.log(data);
         var createData = {
-            "url": chrome.extension.getURL("wiki.html"),
+            "url": "wiki.html",
             "type": "popup",
             "top": screen.availHeight / 4,
             "left": screen.availWidth / 5,
@@ -20,30 +32,18 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         }
         chrome.windows.create(createData, function () {
             chrome.storage.local.set({
-                updateTextTo: JSON.stringify(data)
+                updateTextTo: JSON.stringify(data),
+                translate_text: translate,
+                selectionText: info.selectionText
+
             }, function () {
                 chrome.tabs.executeScript({
                     file: "wiki.js"
-                });
+                }, () => chrome.runtime.lastError);
             });
         });
 
-
-        // chrome.storage.local.set({
-        //     updateTextTo: JSON.stringify(data)
-        // }, function () {
-        //     chrome.tabs.executeScript({
-        //         file: "wiki.js"
-        //     });
-        // });
     });
-
-    // var wikiURL = "https://en.wikipedia.org/wiki/" + info.selectionText;
-
-    // chrome.tabs.executeScript({
-    //     code: 'document.body.style.backgroundColor="orange"'
-    // });
-    // console.log("id: %s, selection: %s, url: %s", info.menuItemId, info.selectionText, tab.url);
 });
 
 
@@ -54,7 +54,6 @@ function createMenus() {
         "title": "wiki",
         "contexts": ["selection"]
     });
-    console.log(parent);
 
 }
 
