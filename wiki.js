@@ -13,6 +13,7 @@ chrome.storage.local.get('updateTextTo', function (items) {
 
         var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="
             + "auto" + "&tl=" + "zh-TW" + "&dt=t&q=" + encodeURI(object.extract);
+
         var translate = "";
 
         fetch(url).then(function (resp) {
@@ -37,8 +38,9 @@ chrome.storage.local.get('updateTextTo', function (items) {
     chrome.storage.local.remove('updateTextTo');
 });
 chrome.storage.local.get('translate_text', function (items) {
-    if (flag == 0)
+    if (flag == 0) {
         document.getElementById("zh-tw_link").innerHTML = `<a href="https://zh.wikipedia.org/wiki/` + items.translate_text + '"' + `>` + "https://zh.wikipedia.org/wiki/" + items.translate_text + `</a>`;
+    }
     chrome.storage.local.remove('translate_text');
 });
 
@@ -49,12 +51,15 @@ chrome.storage.local.get('selectionText', function (items) {
         document.getElementById("notfound").style.display = "block";
         document.getElementById("find").style.display = "none";
         document.getElementById("notfound").innerHTML = '<div class="d-flex justify-content-center"><h3 class="mt-5">wikipedia  not found</h3></div>';
-        document.getElementById("notfound").innerHTML += '<br>' + `<a  href="https://www.google.com/search?q=` + items.selectionText + '"' + "target='_blank' id='googlesearch' class='btn btn-outline-primary btn-lg btn-block'" + `>` + "Search By Google" + `</a>`;;
 
-        function click() {
+        document.getElementById("notfound").innerHTML += '<br>' + `<a  href="https://www.google.com/search?q=` + items.selectionText + '"' + " id='googlesearch' class='btn btn-outline-primary btn-lg btn-block'" + `>` + "Search By Google" + `</a>`;;
+
+
+        document.getElementById('googlesearch').addEventListener("click", function click() {
             window.close();
-        }
-        document.getElementById('googlesearch').addEventListener("click", click);
+            window.open("https://www.google.com/search?q=" + items.selectionText);
+
+        });
     }
     chrome.storage.local.remove('selectionText');
 });

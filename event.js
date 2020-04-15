@@ -1,21 +1,22 @@
 
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-    // console.log(info.selectionText);
+
+
     var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl="
         + "auto" + "&tl=" + "zh-TW" + "&dt=t&q=" + encodeURI(info.selectionText);
     var translate;
     fetch(url).then(function (resp) {
-        // console.log(resp);
+
         return resp.json()
     }).then(function (data) {
 
         translate = data[0][0][0];
     });
-
+    // console.log(english_query_word);
     var object_data;
     fetch("https://en.wikipedia.org/api/rest_v1/page/summary/" + info.selectionText + "?SameSite=None").then(function (resp) {
-        // console.log(resp);
+
 
         return resp.json()
     }).then(function (data) {
