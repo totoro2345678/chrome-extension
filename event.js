@@ -15,7 +15,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     });
     // console.log(english_query_word);
     var object_data;
-    fetch("https://en.wikipedia.org/api/rest_v1/page/summary/" + info.selectionText + "?SameSite=None").then(function (resp) {
+    var query = info.selectionText.toLowerCase();
+
+    fetch("https://en.wikipedia.org/api/rest_v1/page/summary/" + query + "?SameSite=None").then(function (resp) {
 
 
         return resp.json()

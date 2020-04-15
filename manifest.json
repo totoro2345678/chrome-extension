@@ -1,9 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "wiki",
-    "description": "wiki",
+    "name": "WIKI",
+    "description": "keyword query by wiki",
     "version": "1.0",
-    //取得contextMenus權限
     "permissions": [
         "contextMenus",
         "storage",
@@ -11,15 +10,15 @@
         "activeTab",
         "<all_urls>"
     ],
-    //指定功能選單項目的icon 16X16，注意不要跟broswer與page action的宣告方式搞混
     "icons": {
-        "16": "icon.png"
+        "16": "16.png",
+        "32": "32.png",
+        "128": "128.png"
     },
     "background": {
         "scripts": [
             "event.js"
         ]
-        //如果不把persistent設定為true：他會要求你自己使用字串指定項目的id，而且不可以重複，另外點擊事件的綁定也會變的相對複雜，為了讓大家把重點聚焦，所以才這麼作。
     },
     "content_security_policy": "script-src 'self' https://ssl.google-analytics.com  https://translate.googleapis.com https://en.wikipedia.org; object-src 'self';"
 }
