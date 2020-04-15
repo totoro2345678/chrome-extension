@@ -51,7 +51,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
 function createMenus() {
     var parent = chrome.contextMenus.create({
-        "id": "sampleContextMenu",
         "title": "wiki",
         "contexts": ["selection"]
     });
