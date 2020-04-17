@@ -28,6 +28,7 @@ chrome.storage.local.get('updateTextTo', function (items) {
 
 
         });
+
     }
     else {
         flag = 1;
@@ -35,7 +36,14 @@ chrome.storage.local.get('updateTextTo', function (items) {
 
     }
 
+
     chrome.storage.local.remove('updateTextTo');
+});
+chrome.storage.local.get('error_long_word', function (items) {
+    if (items.error_long_word == "1") {
+        flag = 2;
+    }
+    chrome.storage.local.remove('error_long_word');
 });
 chrome.storage.local.get('translate_text', function (items) {
     if (flag == 0) {
@@ -52,7 +60,7 @@ chrome.storage.local.get('selectionText', function (items) {
         document.getElementById("find").style.display = "none";
         document.getElementById("notfound").innerHTML = '<div class="d-flex justify-content-center"><h3 class="mt-5">wikipedia  not found</h3></div>';
 
-        document.getElementById("notfound").innerHTML += '<br>' + `<a  href="https://www.google.com/search?q=` + items.selectionText + '"' + " id='googlesearch' class='btn btn-outline-primary btn-lg btn-block'" + `>` + "Search By Google" + `</a>`;;
+        document.getElementById("notfound").innerHTML += '<br>' + `<a  href="https://www.google.com/search?q=` + items.selectionText + '"' + " id='googlesearch' class='btn btn-outline-primary btn-lg btn-block'" + `>` + "Search By Google" + `</a>`;
 
 
         document.getElementById('googlesearch').addEventListener("click", function click() {
@@ -60,6 +68,24 @@ chrome.storage.local.get('selectionText', function (items) {
             window.open("https://www.google.com/search?q=" + items.selectionText);
 
         });
+    } else if (flag == 2) {
+        document.getElementById("notfound").innerHTML = ""
+        document.getElementById("notfound").style.display = "block";
+        document.getElementById("find").style.display = "none";
+        document.getElementById("notfound").innerHTML = '<div class="row  justify-content-center"><h3 class="mt-5">Error !! The word you selected too long!</h3></div>';
+
+        document.getElementById("notfound").innerHTML += '<br>' + `<a  href="#"` + " id='googlesearch' class='mt-3 btn btn-outline-primary btn-lg btn-block'" + `>` + "Close Window" + `</a>`;
+
+
+        document.getElementById('googlesearch').addEventListener("click", function click() {
+            window.close();
+
+
+        });
+
+
+
+
     }
     chrome.storage.local.remove('selectionText');
 });
