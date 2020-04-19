@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "WIKI",
     "description": "Get the definition of the highlighted english term from Wikipedia.",
-    "version": "1.05",
+    "version": "1.06.1",
     "permissions": [
         "contextMenus",
         "storage",

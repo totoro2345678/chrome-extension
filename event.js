@@ -21,12 +21,15 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             var createData = {
                 "url": "wiki.html",
                 "type": "popup",
-                "top": screen.availHeight / 4,
-                "left": screen.availWidth / 5,
-                "width": screen.availWidth / 2,
-                "height": screen.availHeight / 2
+                "top": Math.floor(screen.availHeight / 4),
+                "left": Math.floor(screen.availWidth / 5),
+                "width": Math.floor(screen.availWidth / 2),
+                "height": Math.floor(screen.availHeight / 2)
             };
-
+            // "top": Math.floor(screen.availHeight / 4),
+            //     "left": Math.floor(screen.availWidth / 5),
+            //         "width": Math.floor(screen.availWidth / 2),
+            //             "height": Math.floor(screen.availHeight / 2)
             // console.log(response);
             if (!response.error) {
                 if (response[1][0]) {
